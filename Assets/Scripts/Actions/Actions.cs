@@ -25,4 +25,9 @@ public class Actions
     {
 
     }
+
+    public CardType GetCardType()
+    {
+        return _currentType;
+    }
 }
