@@ -9,7 +9,7 @@ public class Sword : Actions
         _currentType = CardType.SWORD;
     }
 
-    public override void ExecuteAction()
+    public override void ExecuteAction(int fromPlayer)
     {
 
     }

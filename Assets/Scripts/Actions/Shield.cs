@@ -9,7 +9,7 @@ public class Shield : Actions
         _currentType = CardType.SHIELD;
     }
 
-    public override void ExecuteAction()
+    public override void ExecuteAction(int fromPlayer)
     {
 
     }

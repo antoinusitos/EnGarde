@@ -29,8 +29,8 @@ public class Deck
                 random2 = Random.Range(0, 5);
 
             _allCards[i] = new Card();
-            _allCards[i].GetAction(true, random1, Random.Range(1, 5));
-            _allCards[i].GetAction(false, random2, Random.Range(1, 5));
+            _allCards[i].RecoverActions(true, random1, Random.Range(1, 5));
+            _allCards[i].RecoverActions(false, random2, Random.Range(1, 5));
         }
     }
 

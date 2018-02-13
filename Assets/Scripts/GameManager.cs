@@ -14,9 +14,11 @@ public enum GameState
 
 public class GameManager : MonoBehaviour
 {
-    private Player[] _players = new Player[2];
+    public Player[] _players = new Player[2];
 
     private GameState _currentGameState = GameState.INIT;
+
+    private bool _resolving = false;
 
     private void Start()
     {
@@ -26,7 +28,6 @@ public class GameManager : MonoBehaviour
     private void StartGame()
     {
         // Warning : be sure that there is only 2 players in the scene
-        _players = FindObjectsOfType<Player>();
         _players[0].StartPlayer();
         _players[1].StartPlayer();
 
@@ -52,14 +53,21 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameState.WAITINGFORPLAYERS:
-                if (_players[0].GetHavePlayed() && _players[1].GetHavePlayed())
+                if (_players[0].GetHavePlayed() && _players[1].GetHavePlayed() && !_resolving)
                 {
-                    _currentGameState = GameState.EXECUTING;
+                    _resolving = true;
+
+                    Debug.Log("player 1 played :");
+                    _players[0].GetCurrentCard().SideToString(_players[0].GetCurrentAction());
+
+                    Debug.Log("player 2 played :");
+                    _players[1].GetCurrentCard().SideToString(_players[1].GetCurrentAction());
+
+                    StartCoroutine("ShowResolution");
                 }
                 break;
 
             case GameState.EXECUTING:
-                Debug.Log("Players have played !");
                 _players[0].ResetHavePlayed();
                 _players[1].ResetHavePlayed();
                 _currentGameState = GameState.DISTRIBUTING;
@@ -75,5 +83,16 @@ public class GameManager : MonoBehaviour
 
                 break;
         }
+    }
+
+    private IEnumerator ShowResolution()
+    {
+        Actions player0Action = _players[0].GetCurrentCard().GetSelectedAction(_players[0].GetCurrentAction());
+        player0Action.ExecuteAction(0);
+        Actions player1Action = _players[1].GetCurrentCard().GetSelectedAction(_players[1].GetCurrentAction());
+        player1Action.ExecuteAction(1);
+        yield return new WaitForSeconds(2.0f);
+        _currentGameState = GameState.EXECUTING;
+        _resolving = false;
     }
 }

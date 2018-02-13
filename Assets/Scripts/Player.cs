@@ -12,6 +12,9 @@ public class Player : MonoBehaviour
 
     public int playerNumber = 0;
 
+    private Card _currentCard = null;
+    private int _currentAction = -1; // 0 = Left, 1 = Right
+
     public void StartPlayer()
     {
         _currentLife = 3;
@@ -24,28 +27,36 @@ public class Player : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.A) && playerNumber == 0)
         {
             _havePlayed = true;
-
+            _currentAction = 0;
+            UIManager.GetInstance().ShowSelection(playerNumber, true, true);
         }
         else if (Input.GetKeyDown(KeyCode.Z) && playerNumber == 0)
         {
             _havePlayed = true;
-
+            _currentAction = 1;
+            UIManager.GetInstance().ShowSelection(playerNumber, false, true);
         }
 
         else if (Input.GetKeyDown(KeyCode.O) && playerNumber == 1)
         {
             _havePlayed = true;
+            _currentAction = 0;
+            UIManager.GetInstance().ShowSelection(playerNumber, true, true);
         }
         else if (Input.GetKeyDown(KeyCode.P) && playerNumber == 1)
         {
             _havePlayed = true;
-
+            _currentAction = 1;
+            UIManager.GetInstance().ShowSelection(playerNumber, false, true);
         }
     }
 
     public void PickCard()
     {
-        _currentDeck.PickCard().CardToString();
+        _currentCard = _currentDeck.PickCard();
+        UIManager.GetInstance().SetImageSprite(playerNumber, true, _currentCard.GetCardType(true), _currentCard.GetCardAmount(true));
+        UIManager.GetInstance().SetImageSprite(playerNumber, false, _currentCard.GetCardType(false), _currentCard.GetCardAmount(false));
+        _currentCard.CardToString();
     }
 
     public int GetLife()
@@ -58,8 +69,22 @@ public class Player : MonoBehaviour
         return _havePlayed;
     }
 
+    public Card GetCurrentCard()
+    {
+        return _currentCard;
+    }
+
+    public int GetCurrentAction()
+    {
+        return _currentAction;
+    }
+
     public void ResetHavePlayed()
     {
         _havePlayed = false;
+        _currentCard = null;
+        _currentAction = -1;
+        UIManager.GetInstance().ShowSelection(playerNumber, true, false);
+        UIManager.GetInstance().ShowSelection(playerNumber, false, false);
     }
 }
