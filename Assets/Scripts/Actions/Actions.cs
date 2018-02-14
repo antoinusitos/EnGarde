@@ -23,7 +23,7 @@ public class Actions
 
     }
 
-    public virtual void ExecuteAction(int fromPlayer)
+    public virtual void ExecuteAction(int fromPlayer, Board currentBoard)
     {
 
     }

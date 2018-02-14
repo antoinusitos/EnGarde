@@ -41,9 +41,9 @@ public class GameManager : MonoBehaviour
         {
             case GameState.DISTRIBUTING:
                 Debug.Log("New turn !");
-                Debug.Log("Player 1 :");
+                //Debug.Log("Player 1 :");
                 _players[0].PickCard();
-                Debug.Log("Player 2 :");
+                //Debug.Log("Player 2 :");
                 _players[1].PickCard();
 
                 // Show card for both players here
@@ -57,11 +57,11 @@ public class GameManager : MonoBehaviour
                 {
                     _resolving = true;
 
-                    Debug.Log("player 1 played :");
-                    _players[0].GetCurrentCard().SideToString(_players[0].GetCurrentAction());
+                    //Debug.Log("player 1 played :");
+                    //_players[0].GetCurrentCard().SideToString(_players[0].GetCurrentAction());
 
-                    Debug.Log("player 2 played :");
-                    _players[1].GetCurrentCard().SideToString(_players[1].GetCurrentAction());
+                    //Debug.Log("player 2 played :");
+                   // _players[1].GetCurrentCard().SideToString(_players[1].GetCurrentAction());
 
                     StartCoroutine("ShowResolution");
                 }
@@ -88,9 +88,11 @@ public class GameManager : MonoBehaviour
     private IEnumerator ShowResolution()
     {
         Actions player0Action = _players[0].GetCurrentCard().GetSelectedAction(_players[0].GetCurrentAction());
-        player0Action.ExecuteAction(0);
+        player0Action.ExecuteAction(0, _players[0].GetCurrentBoard());
+        player0Action.ExecuteAction(0, _players[1].GetCurrentBoard());
         Actions player1Action = _players[1].GetCurrentCard().GetSelectedAction(_players[1].GetCurrentAction());
-        player1Action.ExecuteAction(1);
+        player1Action.ExecuteAction(1, _players[1].GetCurrentBoard());
+        player1Action.ExecuteAction(1, _players[0].GetCurrentBoard());
         yield return new WaitForSeconds(2.0f);
         _currentGameState = GameState.EXECUTING;
         _resolving = false;

@@ -9,7 +9,7 @@ public class Arrow : Actions
         _currentType = CardType.ARROW;
     }
 
-    public override void ExecuteAction(int fromPlayer)
+    public override void ExecuteAction(int fromPlayer, Board currentBoard)
     {
 
     }

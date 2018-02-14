@@ -9,7 +9,7 @@ public class Magic : Actions
         _currentType = CardType.MAGIC;
     }
 
-    public override void ExecuteAction(int fromPlayer)
+    public override void ExecuteAction(int fromPlayer, Board currentBoard)
     {
 
     }

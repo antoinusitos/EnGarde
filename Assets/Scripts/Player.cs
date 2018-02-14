@@ -15,11 +15,20 @@ public class Player : MonoBehaviour
     private Card _currentCard = null;
     private int _currentAction = -1; // 0 = Left, 1 = Right
 
+    private Board _currentBoard = null;
+
     public void StartPlayer()
     {
+        _currentBoard = GetComponent<Board>();
+
         _currentLife = 3;
         _currentDeck = new Deck();
         _currentDeck.StartDeck();
+    }
+
+    public Board GetCurrentBoard()
+    {
+        return _currentBoard;
     }
 
     private void Update()
@@ -56,7 +65,7 @@ public class Player : MonoBehaviour
         _currentCard = _currentDeck.PickCard();
         UIManager.GetInstance().SetImageSprite(playerNumber, true, _currentCard.GetCardType(true), _currentCard.GetCardAmount(true));
         UIManager.GetInstance().SetImageSprite(playerNumber, false, _currentCard.GetCardType(false), _currentCard.GetCardAmount(false));
-        _currentCard.CardToString();
+        //_currentCard.CardToString();
     }
 
     public int GetLife()

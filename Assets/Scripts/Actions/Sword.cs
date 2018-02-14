@@ -9,8 +9,8 @@ public class Sword : Actions
         _currentType = CardType.SWORD;
     }
 
-    public override void ExecuteAction(int fromPlayer)
+    public override void ExecuteAction(int fromPlayer, Board currentBoard)
     {
-
+        currentBoard.SetPlayerPos(fromPlayer, _currentAmount);
     }
 }

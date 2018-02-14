@@ -9,8 +9,8 @@ public class Move : Actions
         _currentType = CardType.MOVE;
     }
 
-    public override void ExecuteAction(int fromPlayer)
+    public override void ExecuteAction(int fromPlayer, Board currentBoard)
     {
-        UIManager.GetInstance().GetPlayerUIState(0).SetPlayerPos(fromPlayer, _currentAmount);
+        currentBoard.SetPlayerPos(fromPlayer, -_currentAmount);
     }
 }
