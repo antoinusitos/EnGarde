@@ -11,6 +11,10 @@ public class Magic : Actions
 
     public override void ExecuteAction(int fromPlayer, Board currentBoard)
     {
-
+        base.ExecuteAction(fromPlayer, currentBoard);
+        //Attack
+        Debug.Log("ATTACK MAGIC :" + _resolutionAmount);
+        StopAction();
+        _resolutionAmount = 0;
     }
 }

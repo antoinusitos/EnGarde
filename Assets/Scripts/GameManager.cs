@@ -40,9 +40,7 @@ public class GameManager : MonoBehaviour
         {
             case GameState.DISTRIBUTING:
                 Debug.Log("New turn !");
-                //Debug.Log("Player 1 :");
                 _players[0].PickCard();
-                //Debug.Log("Player 2 :");
                 _players[1].PickCard();
 
                 // Show card for both players here
@@ -55,12 +53,6 @@ public class GameManager : MonoBehaviour
                 if (_players[0].GetHavePlayed() && _players[1].GetHavePlayed() && !_resolving)
                 {
                     _resolving = true;
-
-                    //Debug.Log("player 1 played :");
-                    //_players[0].GetCurrentCard().SideToString(_players[0].GetCurrentAction());
-
-                    //Debug.Log("player 2 played :");
-                   // _players[1].GetCurrentCard().SideToString(_players[1].GetCurrentAction());
 
                     StartCoroutine("ShowResolution");
                 }
@@ -89,7 +81,29 @@ public class GameManager : MonoBehaviour
         Actions player0Action = _players[0].GetCurrentCard().GetSelectedAction(_players[0].GetCurrentAction());
         Actions player1Action = _players[1].GetCurrentCard().GetSelectedAction(_players[1].GetCurrentAction());
 
-        int resolution = Resolution(player0Action, player1Action);
+        player0Action.StartResolution();
+        player1Action.StartResolution();
+
+        while (player0Action.GetResolutionAmount() > 0 || player1Action.GetResolutionAmount() > 0)
+        {
+
+            if (player0Action.GetCanAct())
+            {
+                player0Action.ExecuteAction(0, _players[0].GetCurrentBoard());
+                //player0Action.ExecuteAction(0, _players[1].GetCurrentBoard());
+            }
+            player0Action.Update();
+            if (player1Action.GetCanAct())
+            {
+                player1Action.ExecuteAction(1, _players[0].GetCurrentBoard());
+                //player1Action.ExecuteAction(1, _players[1].GetCurrentBoard());
+            }
+            player1Action.Update();
+            yield return null;
+        }
+
+
+       /* int resolution = Resolution(player0Action, player1Action);
 
         if(resolution == -1)
         {
@@ -123,7 +137,7 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.Log("Nothing happended !");
-        }
+        }*/
 
 
         yield return new WaitForSeconds(2.0f);
@@ -273,5 +287,17 @@ public class GameManager : MonoBehaviour
         }
 
         return 2;
+    }
+
+    private static GameManager _instance = null;
+
+    public static GameManager GetInstance()
+    {
+        return _instance;
+    }
+
+    private void Awake()
+    {
+        _instance = this;
     }
 }

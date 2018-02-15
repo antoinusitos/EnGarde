@@ -11,6 +11,13 @@ public class Move : Actions
 
     public override void ExecuteAction(int fromPlayer, Board currentBoard)
     {
-        currentBoard.SetPlayerPos(fromPlayer, -_currentAmount);
+        base.ExecuteAction(fromPlayer, currentBoard);
+        int l = currentBoard.SetPlayerPos(fromPlayer, -1);
+        if (l != 0)
+        {
+            //Cannot move more
+            StopAction();
+            _resolutionAmount = 0;
+        }
     }
 }
