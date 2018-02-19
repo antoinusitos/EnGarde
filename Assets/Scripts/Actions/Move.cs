@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Move : Actions
 {
+    //THIS ACTION MAKE THE PLAYER MOVING BACK
+
     public override void InitAction()
     {
         _currentType = CardType.MOVE;
@@ -11,9 +13,15 @@ public class Move : Actions
 
     public override void ExecuteAction(int fromPlayer, Board currentBoard)
     {
-        base.ExecuteAction(fromPlayer, currentBoard);
-        int l = currentBoard.SetPlayerPos(fromPlayer, -1);
-        if (l != 0)
+        int basePos = currentBoard.GetPlayerPos(fromPlayer);
+        int newPos = currentBoard.CalcPlayerPos(fromPlayer, -1);
+        // if we moved
+        if (newPos != basePos)
+        {
+            currentBoard.SetPlayerPos(fromPlayer, newPos);
+            AllowActionUpdate();
+        }
+        else 
         {
             //Cannot move more
             StopAction();

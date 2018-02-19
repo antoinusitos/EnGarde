@@ -11,7 +11,6 @@ public class Shield : Actions
 
     public override void ExecuteAction(int fromPlayer, Board currentBoard)
     {
-        base.ExecuteAction(fromPlayer, currentBoard);
         //Shield
         Debug.Log("SHIELD :" + _resolutionAmount);
         StopAction();

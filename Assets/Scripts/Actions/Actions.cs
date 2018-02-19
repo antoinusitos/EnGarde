@@ -32,8 +32,6 @@ public class Actions
 
     public virtual void ExecuteAction(int fromPlayer, Board currentBoard)
     {
-        _canAct = false;
-        _mustUpdate = true;
     }
 
     public CardType GetCardType()
@@ -56,7 +54,7 @@ public class Actions
         return _canAct;
     }
 
-    public void StartResolution()
+    public void InitResolution()
     {
         _resolutionAmount = _currentAmount;
     }
@@ -66,7 +64,13 @@ public class Actions
         return _resolutionAmount;
     }
 
-    public void Update()
+    public void AllowActionUpdate()
+    {
+        _canAct = false;
+        _mustUpdate = true;
+    }
+
+    public void UpdateAction()
     {
         if (_mustUpdate)
         {
@@ -82,6 +86,13 @@ public class Actions
     }
 
     public void StopAction()
+    {
+        _currentTimeResolution = 0;
+        _mustUpdate = false;
+        _canAct = false;
+    }
+
+    public void ResetAction()
     {
         _currentTimeResolution = 0;
         _mustUpdate = false;

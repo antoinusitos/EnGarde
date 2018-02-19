@@ -11,11 +11,20 @@ public class Sword : Actions
 
     public override void ExecuteAction(int fromPlayer, Board currentBoard)
     {
-        base.ExecuteAction(fromPlayer, currentBoard);
-        int l = currentBoard.SetPlayerPos(fromPlayer, 1);
-        if (l != 0)
+        int basePos = currentBoard.GetPlayerPos(fromPlayer);
+        int newPos = currentBoard.CalcPlayerPos(fromPlayer, 1);
+        Debug.Log("fromPlayer :" + fromPlayer);
+        Debug.Log("basePos :" + basePos);
+        Debug.Log("newPosnewPos :" + newPos);
+        // if we moved
+        if (newPos != basePos)
         {
-            //Attack
+            currentBoard.SetPlayerPos(fromPlayer, newPos);
+            AllowActionUpdate();
+        }
+        else
+        {
+            //Cannot move more
             Debug.Log("ATTACK SWORD :" + _resolutionAmount);
             StopAction();
             _resolutionAmount = 0;

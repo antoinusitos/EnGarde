@@ -23,10 +23,10 @@ public class Deck
 
         for(int i = 0; i < _allCards.Length; i++)
         {
-            int random1 = Random.Range(0, 5);
-            int random2 = Random.Range(0, 5);
+            int random1 = Random.Range(2, 5);
+            int random2 = Random.Range(2, 5);
             while(random2 == random1)
-                random2 = Random.Range(0, 5);
+                random2 = Random.Range(2, 5);
 
             _allCards[i] = new Card();
             _allCards[i].RecoverActions(true, random1, Random.Range(1, 5));

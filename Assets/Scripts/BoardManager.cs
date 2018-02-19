@@ -2,85 +2,75 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum GameState
+public class BoardManager : MonoBehaviour
 {
-    INIT,
-    DISTRIBUTING,
-    WAITINGFORPLAYERS,
-    ENDTURN,
-    ENDGAME,
+    public int positions = 10;
 
-}
+    private bool _resolving = false;
 
-public class GameManager : MonoBehaviour
-{
-    public Player[] _players = new Player[2];
+    private Board _masterBoard = null;
 
-    private GameState _currentGameState = GameState.INIT;
-
-    private BoardManager _boardManager = null;
-
-    private void Start()
+    public void Init()
     {
-        _boardManager = BoardManager.GetInstance();
-        _boardManager.Init();
-        StartGame();
+        _masterBoard = new Board();
+        _masterBoard.StartBoard();
     }
 
-    private void StartGame()
+    public bool GetResolving()
     {
-        _players[0].StartPlayer();
-        _players[1].StartPlayer();
+        return _resolving;
+    }
 
-        Debug.Log("Starting Game !");
-        _currentGameState = GameState.DISTRIBUTING;
+    public void Resolve(Card player0Card, Card player1Card, int player0Choice, int player1Choice)
+    {
+        if (_resolving) return;
+
+        _resolving = true;
+
+        StartCoroutine(ShowResolution(player0Card, player1Card, player0Choice, player1Choice));
+    }
+
+    private IEnumerator ShowResolution(Card player0Card, Card player1Card, int player0Choice, int player1Choice)
+    {
+        Actions player0Action = player0Card.GetSelectedAction(player0Choice);
+        Actions player1Action = player1Card.GetSelectedAction(player1Choice);
+
+        player0Action.InitResolution();
+        player1Action.InitResolution();
+
+        //Go at least one time in the loop
+        while (player0Action.GetResolutionAmount() > 0 || player1Action.GetResolutionAmount() > 0)
+        {
+            if (player0Action.GetCanAct())
+            {
+                player0Action.ExecuteAction(0, _masterBoard);
+            }
+            player0Action.UpdateAction();
+            if (player1Action.GetCanAct())
+            {
+                player1Action.ExecuteAction(1, _masterBoard);
+            }
+            player1Action.UpdateAction();
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(2.0f);
+        player0Action.ResetAction();
+        player1Action.ResetAction();
+
+        _masterBoard.DebugBoard();
+        GameManager.GetInstance().SetGameState(GameState.ENDTURN);
+        _resolving = false;
+    }
+
+    public Board GetMasterBoard()
+    {
+        return _masterBoard;
     }
 
     private void Update()
     {
-        switch(_currentGameState)
-        {
-            case GameState.DISTRIBUTING:
-                Debug.Log("New turn !");
-                _players[0].PickCard();
-                _players[1].PickCard();
-
-                // Show card for both players here
-
-                Debug.Log("");
-                _currentGameState = GameState.WAITINGFORPLAYERS;
-                break;
-
-            case GameState.WAITINGFORPLAYERS:
-                if (_players[0].GetHavePlayed() && _players[1].GetHavePlayed())
-                {
-                    _boardManager.Resolve(
-                        _players[0].GetCurrentCard(), _players[1].GetCurrentCard(),
-                        _players[0].GetCurrentAction(), _players[1].GetCurrentAction());
-                }
-                break;
-
-            case GameState.ENDTURN:
-                _players[0].ResetHavePlayed();
-                _players[1].ResetHavePlayed();
-                _currentGameState = GameState.DISTRIBUTING;
-
-                if(_players[0].GetLife() <= 0 || _players[1].GetLife() <= 0)
-                {
-                    Debug.Log("End Game");
-                    _currentGameState = GameState.ENDGAME;
-                }
-                break;
-
-            case GameState.ENDGAME:
-
-                break;
-        }
-    }
-
-    public void SetGameState(GameState newState)
-    {
-        _currentGameState = newState;
+        _masterBoard.UpdateBoard();
     }
 
     // return -1 if player 0 must execute his action
@@ -90,7 +80,7 @@ public class GameManager : MonoBehaviour
     // return 3 for special action
     /*private int Resolution(Actions player0Action, Actions player1Action)
     {
-        switch(player0Action.GetCardType())
+        switch (player0Action.GetCardType())
         {
             case CardType.MAGIC:
                 #region Magic
@@ -226,9 +216,13 @@ public class GameManager : MonoBehaviour
         return 2;
     }*/
 
-    private static GameManager _instance = null;
 
-    public static GameManager GetInstance()
+    #region Singleton
+    // SINGLETON
+
+    private static BoardManager _instance = null;
+
+    public static BoardManager GetInstance()
     {
         return _instance;
     }
@@ -237,4 +231,5 @@ public class GameManager : MonoBehaviour
     {
         _instance = this;
     }
+    #endregion
 }

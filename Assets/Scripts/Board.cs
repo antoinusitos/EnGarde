@@ -4,63 +4,106 @@ using UnityEngine;
 
 public class Board : MonoBehaviour
 {
-    public Transform[] positions = null;
+    public int positions = 9;
 
     private int player0Pos = -1;
     private int player1Pos = -1;
 
-    private void Start()
+    private BoardReplication[] _boardReplications;
+
+    public void StartBoard()
     {
         player0Pos = 0;
-        player1Pos = positions.Length - 1;
+        player1Pos = positions - 1;
+
+        _boardReplications = FindObjectsOfType<BoardReplication>();
+
+        for (int i = 0; i < _boardReplications.Length; i++)
+        {
+            _boardReplications[i].SetPlayerPos(0, player0Pos);
+            _boardReplications[i].SetPlayerPos(1, player1Pos);
+        }
     }
 
-    public int SetPlayerPos(int player, int pos)
+    // return 0 = movement done
+    // return >0 = movement not done
+    // return -1 = player index fail
+    public int CalcPlayerPos(int player, int pos)
     {
         if (player == 0)
         {
-            int toReturn = pos;
+            int tempPos = player0Pos;
 
             for (int i = 0; i < Mathf.Abs(pos); i++)
             {
                 int sign = pos > 0 ? 1 : -1;
-                int calc = player0Pos + (1 * sign);
+                int calc = tempPos + (1 * sign);
 
-                if (calc >= 0 && calc <= positions.Length - 1 && calc != player1Pos)
+                if (calc >= 0 && calc <= positions - 1 && calc != player1Pos)
                 {
-                    player0Pos = calc;
-                    toReturn--;
+                    tempPos = calc;
                 }
                 else break;
             }
 
-            return toReturn;
+            return tempPos;
         }
         else if (player == 1)
         {
-            int toReturn = pos;
+            int tempPos = player1Pos;
 
             for (int i = 0; i < Mathf.Abs(pos); i++)
             {
                 int sign = pos > 0 ? -1 : 1;
-                int calc = player1Pos + (1 * sign);
+                int calc = tempPos + (1 * sign);
 
-                if (calc >= 0 && calc <= positions.Length - 1 && calc != player0Pos)
+                if (calc >= 0 && calc <= positions - 1 && calc != player0Pos)
                 {
-                    player1Pos = calc;
-                    toReturn--;
+                    tempPos = calc;
                 }
                 else break;
             }
 
-            return toReturn;
+            return tempPos;
         }
 
         return -1;
     }
 
-    public Vector3 GetPlayerPos(int player)
+    public int GetPlayerPos(int player) { return player == 0 ? player0Pos : player1Pos; }
+
+    public void SetPlayerPos(int player, int movement)
     {
-        return player == 0 ? positions[player0Pos].transform.position : positions[player1Pos].transform.position;
+        if (player == 0)
+        {
+            player0Pos = movement;
+            //Ask Boards replication to move the visual of the players
+            for(int i = 0; i < _boardReplications.Length; i++)
+            {
+                _boardReplications[i].SetPlayerPos(0, movement);
+            }
+        }
+        else if (player == 1)
+        {
+            player1Pos = movement;
+            //Ask Boards replication to move the visual of the players
+            for (int i = 0; i < _boardReplications.Length; i++)
+            {
+                _boardReplications[i].SetPlayerPos(1, movement);
+            }
+        }
+    }
+
+    public void UpdateBoard()
+    {
+        if(Input.GetKeyDown(KeyCode.W))
+        {
+            DebugBoard();
+        }
+    }
+
+    public void DebugBoard()
+    {
+        Debug.Log("player0Pos :" + player0Pos + ", player1Pos :" + player1Pos);
     }
 }
