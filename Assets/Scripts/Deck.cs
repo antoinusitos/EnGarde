@@ -6,21 +6,26 @@ public class Deck
 { 
     private Card[] _allCards = null;
 
-    public void StartDeck()
+    public void StartDeck(string deckName, bool useDeckName)
     {
-        LoadDeck();
-        GenerateDeck();
+        _allCards = new Card[10];
+        if (useDeckName)
+            LoadDeck(deckName);
+        else
+            GenerateDeck();
     }
 
-    private void LoadDeck()
+    private void LoadDeck(string deckName)
     {
         //File Reader to Get back a deck
+        _allCards = FileReader.GetInstance().ReadFile(deckName);
+        Debug.Log("load ok");
+        _allCards[0].CardToString();
+        _allCards[1].CardToString();
     }
 
     private void GenerateDeck()
     {
-        _allCards = new Card[8];
-
         for(int i = 0; i < _allCards.Length; i++)
         {
             int random1 = Random.Range(2, 5);

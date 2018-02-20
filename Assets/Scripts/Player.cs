@@ -17,13 +17,16 @@ public class Player : MonoBehaviour
 
     private Board _currentBoard = null;
 
+    public string deckName = "DeckName";
+    public bool useDeckName = false;
+
     public void StartPlayer()
     {
         _currentBoard = GetComponent<Board>();
 
         _currentLife = 5;
         _currentDeck = new Deck();
-        _currentDeck.StartDeck();
+        _currentDeck.StartDeck(deckName, useDeckName);
     }
 
     public Board GetCurrentBoard()

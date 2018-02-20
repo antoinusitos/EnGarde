@@ -7,15 +7,10 @@ public class Card
     private Actions _leftAction = null;
     private Actions _rightAction = null;
 
-    /*private int _currentLeftAmount = 0;
-    private int _currentRightAmount = 0;*/
-
-    public void SetCard(Actions type1, int amount1, Actions type2, int amount2)
+    public void SetCard(Actions type1, Actions type2)
     {
         _leftAction = type1;
-        //_currentLeftAmount = amount1;
-        _rightAction = type1;
-        //_currentRightAmount = amount2;
+        _rightAction = type2;
     }
 
     public void CardToString()
