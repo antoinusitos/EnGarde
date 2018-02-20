@@ -9,9 +9,8 @@ public class Magic : Actions
         _currentType = CardType.MAGIC;
     }
 
-    public override void ExecuteAction(int fromPlayer, Board currentBoard)
+    public override void ExecuteAction(int fromPlayer, Board currentBoard, Actions enemyAction)
     {
-        base.ExecuteAction(fromPlayer, currentBoard);
         //Attack
         Debug.Log("ATTACK MAGIC :" + _resolutionAmount);
         StopAction();

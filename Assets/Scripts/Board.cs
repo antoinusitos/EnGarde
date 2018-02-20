@@ -77,8 +77,9 @@ public class Board : MonoBehaviour
         if (player == 0)
         {
             player0Pos = movement;
+            player0Pos = Mathf.Clamp(player0Pos, 0, positions - 1);
             //Ask Boards replication to move the visual of the players
-            for(int i = 0; i < _boardReplications.Length; i++)
+            for (int i = 0; i < _boardReplications.Length; i++)
             {
                 _boardReplications[i].SetPlayerPos(0, movement);
             }
@@ -86,6 +87,7 @@ public class Board : MonoBehaviour
         else if (player == 1)
         {
             player1Pos = movement;
+            player1Pos = Mathf.Clamp(player1Pos, 0, positions - 1);
             //Ask Boards replication to move the visual of the players
             for (int i = 0; i < _boardReplications.Length; i++)
             {
@@ -105,5 +107,11 @@ public class Board : MonoBehaviour
     public void DebugBoard()
     {
         Debug.Log("player0Pos :" + player0Pos + ", player1Pos :" + player1Pos);
+    }
+
+    //Get number of step to reach the other player
+    public int GetDistancePlayers()
+    {
+        return player1Pos - player0Pos;
     }
 }

@@ -9,9 +9,8 @@ public class Arrow : Actions
         _currentType = CardType.ARROW;
     }
 
-    public override void ExecuteAction(int fromPlayer, Board currentBoard)
+    public override void ExecuteAction(int fromPlayer, Board currentBoard, Actions enemyAction)
     {
-        base.ExecuteAction(fromPlayer, currentBoard);
         //Attack
         Debug.Log("ATTACK ARROW :" + _resolutionAmount);
         StopAction();

@@ -30,7 +30,7 @@ public class Actions
 
     }
 
-    public virtual void ExecuteAction(int fromPlayer, Board currentBoard)
+    public virtual void ExecuteAction(int fromPlayer, Board currentBoard, Actions enemyAction)
     {
     }
 

@@ -11,8 +11,9 @@ public class Move : Actions
         _currentType = CardType.MOVE;
     }
 
-    public override void ExecuteAction(int fromPlayer, Board currentBoard)
+    public override void ExecuteAction(int fromPlayer, Board currentBoard, Actions enemyAction)
     {
+        Debug.Log("play MOVE :" + _resolutionAmount);
         int basePos = currentBoard.GetPlayerPos(fromPlayer);
         int newPos = currentBoard.CalcPlayerPos(fromPlayer, -1);
         // if we moved

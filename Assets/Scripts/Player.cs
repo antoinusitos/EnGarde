@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
 {
     private Deck _currentDeck = null;
 
-    private int _currentLife = 3;
+    private int _currentLife = 5;
 
     private bool _havePlayed = false;
 
@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
     {
         _currentBoard = GetComponent<Board>();
 
-        _currentLife = 3;
+        _currentLife = 5;
         _currentDeck = new Deck();
         _currentDeck.StartDeck();
     }
