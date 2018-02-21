@@ -27,6 +27,15 @@ public class GameManager : MonoBehaviour
         StartGame();
     }
 
+    public void DamagePlayer(int player, int damage)
+    {
+        _players[player].TakeDamage(damage);
+        if(_players[player].GetLife() <= 0)
+        {
+            Debug.Log("Player " + player + " lose the game");
+        }
+    }
+
     private void StartGame()
     {
         _players[0].StartPlayer();

@@ -52,7 +52,9 @@ public class BoardManager : MonoBehaviour
             if (player0Action.GetCanAct() && player1Action.GetCanAct())
             {
                 int resolution = Resolution(player0Action, player1Action);
-                Debug.Log("resolution:"+ resolution);
+
+                Debug.Log("resolution " + resolution);
+
                 if (resolution == 0)
                 {
                     player0Action.ExecuteAction(0, _masterBoard, player1Action);

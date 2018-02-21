@@ -106,11 +106,6 @@ public class FileReader : MonoBehaviour
                 action2.InitAction();
                 action2.SetCardAmount(amount2);
 
-                Debug.Log("action1 : " + action1.GetCardType());
-                Debug.Log("amount1 : " + action1.GetCardAmount());
-                Debug.Log("action2 : " + action2.GetCardType());
-                Debug.Log("amount2 : " + action2.GetCardAmount());
-
                 Card c = new Card();
                 c.SetCard(action1, action2);
                 newDeck[index] = c;

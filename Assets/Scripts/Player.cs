@@ -99,4 +99,9 @@ public class Player : MonoBehaviour
         UIManager.GetInstance().ShowSelection(playerNumber, true, false);
         UIManager.GetInstance().ShowSelection(playerNumber, false, false);
     }
+
+    public void TakeDamage(int damage)
+    {
+        _currentLife -= damage;
+    }
 }

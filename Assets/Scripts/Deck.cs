@@ -10,7 +10,10 @@ public class Deck
     {
         _allCards = new Card[10];
         if (useDeckName)
+        {
             LoadDeck(deckName);
+            ShuffleDeck();
+        }
         else
             GenerateDeck();
     }
@@ -19,9 +22,6 @@ public class Deck
     {
         //File Reader to Get back a deck
         _allCards = FileReader.GetInstance().ReadFile(deckName);
-        Debug.Log("load ok");
-        _allCards[0].CardToString();
-        _allCards[1].CardToString();
     }
 
     private void GenerateDeck()
@@ -51,5 +51,16 @@ public class Deck
         _allCards[_allCards.Length - 1] = temp;
 
         return temp;
+    }
+
+    public void ShuffleDeck()
+    {
+        for(int i = 0; i < _allCards.Length; i++)
+        {
+            int rand = Random.Range(0, _allCards.Length);
+            Card temp = _allCards[rand];
+            _allCards[rand] = _allCards[i];
+            _allCards[i] = temp;
+        }
     }
 }
