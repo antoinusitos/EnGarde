@@ -465,7 +465,7 @@ Prefab:
     - target: {fileID: 114704428455016418, guid: 30f9316a7f901f84389f096f4e70240b,
         type: 2}
       propertyPath: deckName
-      value: Deck1
+      value: Deck2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 30f9316a7f901f84389f096f4e70240b, type: 2}

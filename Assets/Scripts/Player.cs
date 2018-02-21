@@ -29,6 +29,11 @@ public class Player : MonoBehaviour
         _currentDeck.StartDeck(deckName, useDeckName);
     }
 
+    public Deck GetCurrentDeck()
+    {
+        return _currentDeck;
+    }
+
     public Board GetCurrentBoard()
     {
         return _currentBoard;
@@ -36,6 +41,8 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        if (!_currentDeck.GetDeckLimitOK()) return;
+
         if(Input.GetKeyDown(KeyCode.A) && playerNumber == 0)
         {
             _havePlayed = true;

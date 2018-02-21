@@ -14,6 +14,8 @@ public class Arrow : Actions
         //Attack
         Debug.Log("ATTACK ARROW :" + _resolutionAmount);
         StopAction();
+        int otherPlayer = fromPlayer == 0 ? 1 : 0;
+        GameManager.GetInstance().DamagePlayer(otherPlayer, _resolutionAmount);
         _resolutionAmount = 0;
     }
 }

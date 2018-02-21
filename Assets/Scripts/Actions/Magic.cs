@@ -13,6 +13,8 @@ public class Magic : Actions
     {
         //Attack
         Debug.Log("ATTACK MAGIC :" + _resolutionAmount);
+        int otherPlayer = fromPlayer == 0 ? 1 : 0;
+        GameManager.GetInstance().DamagePlayer(otherPlayer, _resolutionAmount);
         StopAction();
         _resolutionAmount = 0;
     }

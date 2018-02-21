@@ -41,6 +41,9 @@ public class GameManager : MonoBehaviour
         _players[0].StartPlayer();
         _players[1].StartPlayer();
 
+        if (!_players[0].GetCurrentDeck().GetDeckLimitOK()) return;
+        if (!_players[1].GetCurrentDeck().GetDeckLimitOK()) return;
+
         Debug.Log("Starting Game !");
         _currentGameState = GameState.DISTRIBUTING;
     }
