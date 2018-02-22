@@ -27,6 +27,7 @@ public class Deck
         //File Reader to Get back a deck
         _allCards = FileReader.GetInstance().ReadFile(deckName);
 
+        Debug.Log("check limit for deck : " + deckName);
         CheckDeckLimit();
     }
 
@@ -35,22 +36,44 @@ public class Deck
         return _deckLimitOk;
     }
 
+    private int GetTypeValue(CardType type, int strenght)
+    {
+        switch (type)
+        {
+            case CardType.ARROW:
+                return 15;
+
+            case CardType.MAGIC:
+                return 4 * strenght;
+
+            case CardType.MOVE:
+                return strenght;
+
+            case CardType.SHIELD:
+                return strenght;
+
+            case CardType.SWORD:
+                return 4 * strenght;
+        }
+        return 0;
+    }
+
     private void CheckDeckLimit()
     {
         int finalValue = 0;
         for (int i = 0; i < _allCards.Length; i++)
         {
-            finalValue += _allCards[i].GetCardAmount(true);
-            finalValue += _allCards[i].GetCardAmount(false);
+            finalValue += GetTypeValue(_allCards[i].GetCardType(true), _allCards[i].GetCardAmount(true));
+            finalValue += GetTypeValue(_allCards[i].GetCardType(false), _allCards[i].GetCardAmount(false));
         }
 
         if (finalValue > 100)
         {
-            Debug.Log("deck value > 100");
+            Debug.Log("deck value > 100 with " + finalValue);
         }
         else
         {
-            Debug.Log("deck value <= 100");
+            Debug.Log("deck value <= 100 with " + finalValue);
             _deckLimitOk = true;
         }
     }
