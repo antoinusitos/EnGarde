@@ -25,6 +25,18 @@ public class Board : MonoBehaviour
         }
     }
 
+    public void ResetBoard()
+    {
+        player0Pos = 0;
+        player1Pos = positions - 1;
+
+        for (int i = 0; i < _boardReplications.Length; i++)
+        {
+            _boardReplications[i].SetPlayerPos(0, player0Pos);
+            _boardReplications[i].SetPlayerPos(1, player1Pos);
+        }
+    }
+
     // return 0 = movement done
     // return >0 = movement not done
     // return -1 = player index fail

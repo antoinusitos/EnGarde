@@ -29,9 +29,6 @@ public class UIManager : MonoBehaviour
     public Sprite magicSprite = null;
     public Sprite swordSprite = null;
 
-    public UIState player0UIState = null;
-    public UIState player1UIState = null;
-
     public void SetImageSprite(int playerNumber, bool left, CardType type, int amount = 1)
     {
         Image imageToChange = null;
@@ -101,16 +98,6 @@ public class UIManager : MonoBehaviour
             else
                 player1RightSelection.SetActive(show);
         }
-    }
-
-    public UIState GetPlayerUIState(int player)
-    {
-        if (player == 0)
-            return player0UIState;
-        else if (player == 1)
-            return player1UIState;
-
-        return null;
     }
 
     // SINGLETON

@@ -15,6 +15,7 @@ public class Magic : Actions
         Debug.Log("ATTACK MAGIC :" + _resolutionAmount);
         int otherPlayer = fromPlayer == 0 ? 1 : 0;
         GameManager.GetInstance().DamagePlayer(otherPlayer, _resolutionAmount);
+        BoardManager.GetInstance().SetMustEndTurn();
         StopAction();
         _resolutionAmount = 0;
     }

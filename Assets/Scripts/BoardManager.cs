@@ -37,6 +37,13 @@ public class BoardManager : MonoBehaviour
         StartCoroutine(ShowResolution(player0Card, player1Card, player0Choice, player1Choice));
     }
 
+    public void ResetBoard()
+    {
+        _resolving = false;
+        _mustEndTurn = false;
+        _masterBoard.ResetBoard();
+    }
+
     private IEnumerator ShowResolution(Card player0Card, Card player1Card, int player0Choice, int player1Choice)
     {
         Actions player0Action = player0Card.GetSelectedAction(player0Choice);
@@ -76,6 +83,7 @@ public class BoardManager : MonoBehaviour
                 }
                 else
                 {
+                    _mustEndTurn = true;
                     break; // end the turn
                 }
             }
@@ -162,7 +170,7 @@ public class BoardManager : MonoBehaviour
                         return 2; // players cancel each other
 
                     case CardType.SHIELD:
-                        return 1; // shield win
+                        return 2; // nothing happend
 
                     case CardType.MOVE:
                         return -1; // arrow win
@@ -213,7 +221,7 @@ public class BoardManager : MonoBehaviour
                         return 1; // Move sword
 
                     case CardType.ARROW:
-                        return -1; // shield win
+                        return 2; // nothing happend
 
                     case CardType.SHIELD:
                         return 2; // nothing happend

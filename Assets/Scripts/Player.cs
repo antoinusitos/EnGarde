@@ -39,6 +39,13 @@ public class Player : MonoBehaviour
         return _currentBoard;
     }
 
+    public void ResetPlayer()
+    {
+        _currentLife = 5;
+        ResetHavePlayed();
+        _currentDeck.ShuffleDeck();
+    }
+
     private void Update()
     {
         if (!_currentDeck.GetDeckLimitOK()) return;

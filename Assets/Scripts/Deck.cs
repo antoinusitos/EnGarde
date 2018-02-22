@@ -67,13 +67,13 @@ public class Deck
             finalValue += GetTypeValue(_allCards[i].GetCardType(false), _allCards[i].GetCardAmount(false));
         }
 
-        if (finalValue > 100)
+        if (finalValue > limitValue)
         {
-            Debug.Log("deck value > 100 with " + finalValue);
+            Debug.Log("deck value > "+ limitValue +" with " + finalValue);
         }
         else
         {
-            Debug.Log("deck value <= 100 with " + finalValue);
+            Debug.Log("deck value <= " + limitValue + "  with " + finalValue);
             _deckLimitOk = true;
         }
     }

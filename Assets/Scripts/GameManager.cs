@@ -81,11 +81,20 @@ public class GameManager : MonoBehaviour
                 {
                     Debug.Log("End Game");
                     _currentGameState = GameState.ENDGAME;
+                    Debug.Log("Press N to start again");
                 }
                 break;
 
             case GameState.ENDGAME:
+                if(Input.GetKeyDown(KeyCode.N))
+                {
+                    _players[0].ResetPlayer();
+                    _players[1].ResetPlayer();
+                    _boardManager.ResetBoard();
+                    Debug.Log("Starting Game !");
+                    _currentGameState = GameState.DISTRIBUTING;
 
+                }
                 break;
         }
     }

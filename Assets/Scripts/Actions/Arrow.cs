@@ -16,6 +16,7 @@ public class Arrow : Actions
         StopAction();
         int otherPlayer = fromPlayer == 0 ? 1 : 0;
         GameManager.GetInstance().DamagePlayer(otherPlayer, _resolutionAmount);
+        BoardManager.GetInstance().SetMustEndTurn();
         _resolutionAmount = 0;
     }
 }
