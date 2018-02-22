@@ -22,6 +22,11 @@ public class Deck
             GenerateDeck();
     }
 
+    public Card[] GetCards()
+    {
+        return _allCards;
+    }
+
     private void LoadDeck(string deckName)
     {
         //File Reader to Get back a deck

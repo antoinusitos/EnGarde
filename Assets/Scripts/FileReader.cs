@@ -116,6 +116,61 @@ public class FileReader : MonoBehaviour
         return newDeck;
     }
 
+
+    public void SaveDeck(string deckName, Deck theDeck)
+    {
+        fileName = deckName + ".txt";
+
+        StreamWriter sw = new StreamWriter(fullPath + "/" + fileName);
+
+        sw.WriteLine("#Add Action with");
+        sw.WriteLine("#idAction1=value1***idAction2=value2");
+        sw.WriteLine("#idAction : (Arrow=0, Magic=1, Sword=2, Move=3, Shield=4)");
+        sw.WriteLine("#value : between 1 - 5 inclusive");
+        sw.WriteLine("#Action cost for deck building :");
+        sw.WriteLine("#Arrow 15, Sword X * 4, Move X, Shield X, Magic X * 4");
+
+        string line = "";
+
+        Card[] cards = theDeck.GetCards();
+
+        for (int i = 0; i < cards.Length; i++)
+        {
+            line = "";
+            line += GetACtionID(cards[i].GetCardType(true));
+            line += "=";
+            line += cards[i].GetCardAmount(true);
+            line += "***";
+            line += GetACtionID(cards[i].GetCardType(false));
+            line += "=";
+            line += cards[i].GetCardAmount(false);
+            sw.WriteLine(line);
+        }
+
+        sw.Flush();
+        sw.Close();
+    }
+
+    private int GetACtionID(CardType type)
+    {
+        switch (type)
+        {
+            case CardType.ARROW:
+                return 0;
+            case CardType.SWORD:
+                return 2;
+            case CardType.MOVE:
+                return 3;
+            case CardType.SHIELD:
+                return 4;
+            case CardType.MAGIC:
+                return 1;
+        }
+        return -1;
+    }
+
+    //SINGLETON
+
     private static FileReader _instance = null;
     public static FileReader GetInstance()
     {

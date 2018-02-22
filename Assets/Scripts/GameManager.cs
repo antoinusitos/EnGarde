@@ -70,6 +70,11 @@ public class GameManager : MonoBehaviour
                         _players[0].GetCurrentCard(), _players[1].GetCurrentCard(),
                         _players[0].GetCurrentAction(), _players[1].GetCurrentAction());
                 }
+
+                if(Input.GetKeyDown(KeyCode.S))
+                {
+                    FileReader.GetInstance().SaveDeck("DeckLol", _players[0].GetCurrentDeck());
+                }
                 break;
 
             case GameState.ENDTURN:
