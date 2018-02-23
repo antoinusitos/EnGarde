@@ -20,11 +20,15 @@ public class GameManager : MonoBehaviour
 
     private BoardManager _boardManager = null;
 
+    public UIDeckSelection uiDeckSelection = null;
+    public GameObject uiGame = null;
+
     private void Start()
     {
         _boardManager = BoardManager.GetInstance();
         _boardManager.Init();
-        StartGame();
+        StartDeckSelection();
+        
     }
 
     public void DamagePlayer(int player, int damage)
@@ -36,8 +40,30 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void StartGame()
+    public void SetPlayerDeck(int player, string deckName)
     {
+        _players[player].deckName = deckName;
+    }
+
+    private void StartDeckSelection()
+    {
+        DeckInfos[] deckInfos = FileReader.GetInstance().GetDeckInfos();
+
+        Debug.Log("Load decks available");
+
+        for(int i = 0; i < deckInfos.Length; i++)
+        {
+            Debug.Log(deckInfos[i].deckName + " with size " + deckInfos[i].deckSize);
+        }
+
+        uiDeckSelection.ShowDeckAvailable(deckInfos);
+    }
+
+    public void StartGame()
+    {
+        uiDeckSelection.gameObject.SetActive(false);
+        uiGame.SetActive(true);
+
         _players[0].StartPlayer();
         _players[1].StartPlayer();
 
@@ -56,8 +82,6 @@ public class GameManager : MonoBehaviour
                 Debug.Log("New turn !");
                 _players[0].PickCard();
                 _players[1].PickCard();
-
-                // Show card for both players here
 
                 Debug.Log("");
                 _currentGameState = GameState.WAITINGFORPLAYERS;
@@ -108,149 +132,6 @@ public class GameManager : MonoBehaviour
     {
         _currentGameState = newState;
     }
-
-    // return -1 if player 0 must execute his action
-    // return 0 if both players must execute their action
-    // return 1 if player 1 must execute his action
-    // return 2 if nothing append
-    // return 3 for special action
-    /*private int Resolution(Actions player0Action, Actions player1Action)
-    {
-        switch(player0Action.GetCardType())
-        {
-            case CardType.MAGIC:
-                #region Magic
-                switch (player1Action.GetCardType())
-                {
-                    case CardType.MAGIC:
-                        if (player0Action.GetCardAmount() > player1Action.GetCardAmount())
-                            return -1;
-                        else if (player0Action.GetCardAmount() < player1Action.GetCardAmount())
-                            return 1;
-                        else
-                            return 2;
-
-                    case CardType.SWORD:
-                        return -1;
-
-                    case CardType.ARROW:
-                        return 1;
-
-                    case CardType.SHIELD:
-                        return -1;
-
-                    case CardType.MOVE:
-                        return 2;
-                }
-                #endregion
-                break;
-
-            case CardType.ARROW:
-                #region Arrow
-                switch (player1Action.GetCardType())
-                {
-                    case CardType.MAGIC:
-                        return -1;
-
-                    case CardType.SWORD:
-                        return 1;
-
-                    case CardType.ARROW:
-                        return 2;
-
-                    case CardType.SHIELD:
-                        return 2;
-
-                    case CardType.MOVE:
-                        return -1;
-                }
-                #endregion
-                break;
-
-            case CardType.MOVE:
-                #region Move
-                switch (player1Action.GetCardType())
-                {
-                    case CardType.MAGIC:
-                        return 2;
-
-                    case CardType.SWORD:
-                        return 1;
-
-                    case CardType.ARROW:
-                        return 1;
-
-                    case CardType.SHIELD:
-                        return 2;
-
-                    case CardType.MOVE:
-                        return 0;
-                }
-                #endregion
-                break;
-
-            case CardType.SHIELD:
-                #region Shield
-                switch (player1Action.GetCardType())
-                {
-                    case CardType.MAGIC:
-                        return 1;
-
-                    case CardType.SWORD:
-                        if (player0Action.GetCardAmount() > player1Action.GetCardAmount())
-                            return -1;
-                        else if (player0Action.GetCardAmount() < player1Action.GetCardAmount())
-                            return 1;
-                        else
-                            return 2;
-
-                    case CardType.ARROW:
-                        return 2;
-
-                    case CardType.SHIELD:
-                        return 2;
-
-                    case CardType.MOVE:
-                        return 2;
-                }
-                #endregion
-                break;
-
-            case CardType.SWORD:
-                #region Sword
-                switch (player1Action.GetCardType())
-                {
-                    case CardType.MAGIC:
-                        return 1;
-
-                    case CardType.SWORD:
-                        if (player0Action.GetCardAmount() > player1Action.GetCardAmount())
-                            return -1;
-                        else if (player0Action.GetCardAmount() < player1Action.GetCardAmount())
-                            return 1;
-                        else
-                            return 3;
-
-                    case CardType.ARROW:
-                        return -1;
-
-                    case CardType.SHIELD:
-                        if (player0Action.GetCardAmount() > player1Action.GetCardAmount())
-                            return -1;
-                        else if (player0Action.GetCardAmount() < player1Action.GetCardAmount())
-                            return 1;
-                        else
-                            return 2;
-
-                    case CardType.MOVE:
-                        return -1;
-                }
-                #endregion
-                break;
-        }
-
-        return 2;
-    }*/
 
     private static GameManager _instance = null;
 

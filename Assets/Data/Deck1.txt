@@ -5,7 +5,7 @@
 #Action cost for deck building :
 #Arrow 15, Sword X * 4, Move X, Shield X, Magic X * 4
 3=2***1=2
-2=2***4=3
+2=2***4=2
 1=1***0=1
 2=1***1=2
 3=1***2=2

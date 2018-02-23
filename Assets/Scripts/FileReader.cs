@@ -4,6 +4,12 @@ using UnityEngine;
 
 using System.IO;
 
+public struct DeckInfos
+{
+    public string deckName;
+    public int deckSize;
+}
+
 public class FileReader : MonoBehaviour
 {
     // file to read for the data
@@ -116,6 +122,39 @@ public class FileReader : MonoBehaviour
         return newDeck;
     }
 
+    public DeckInfos[] GetDeckInfos()
+    {
+        fileName = "DeckAvailable.txt";
+
+        DeckInfos[] list = null;
+
+        StreamReader sr = new StreamReader(fullPath + "/" + fileName);
+        string fileContents = sr.ReadToEnd();
+        sr.Close();
+
+        List<string> infos = new List<string>();
+
+        string[] lines = fileContents.Split("\n"[0]);
+        foreach (string line in lines)
+        {
+            if (line.Contains("#"))
+            {
+                infos.Add(line);
+            }
+        }
+
+        list = new DeckInfos[infos.Count];
+
+        for (int i = 0; i < infos.Count; i++)
+        {
+            string[] deckInfo = infos[i].Split('#');
+
+            list[i].deckName = deckInfo[0];
+            list[i].deckSize = int.Parse(deckInfo[1]);
+        }
+
+        return list;
+    }
 
     public void SaveDeck(string deckName, Deck theDeck)
     {

@@ -76,6 +76,10 @@ public class Deck
         {
             Debug.Log("deck value > "+ limitValue +" with " + finalValue);
         }
+        else if(_allCards.Length > 10 || _allCards.Length < 1)
+        {
+            Debug.Log("number of cards is not between 1 and 10");
+        }
         else
         {
             Debug.Log("deck value <= " + limitValue + "  with " + finalValue);

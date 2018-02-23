@@ -18,7 +18,9 @@ public class Player : MonoBehaviour
     private Board _currentBoard = null;
 
     public string deckName = "DeckName";
-    public bool useDeckName = false;
+    public bool useDeckName = true;
+
+    private bool _started = false;
 
     public void StartPlayer()
     {
@@ -27,6 +29,7 @@ public class Player : MonoBehaviour
         _currentLife = 5;
         _currentDeck = new Deck();
         _currentDeck.StartDeck(deckName, useDeckName);
+        _started = true;
     }
 
     public Deck GetCurrentDeck()
@@ -48,6 +51,8 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        if (!_started) return;
+
         if (!_currentDeck.GetDeckLimitOK()) return;
 
         if(Input.GetKeyDown(KeyCode.A) && playerNumber == 0)
