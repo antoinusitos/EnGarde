@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Deck
 { 
-    private Card[] _allCards = null;
+    private Card1[] _allCards = null;
 
     private int limitValue = 100;
 
@@ -12,7 +12,7 @@ public class Deck
 
     public void StartDeck(string deckName, bool useDeckName)
     {
-        _allCards = new Card[10];
+        _allCards = new Card1[10];
         if (useDeckName)
         {
             LoadDeck(deckName);
@@ -22,7 +22,7 @@ public class Deck
             GenerateDeck();
     }
 
-    public Card[] GetCards()
+    public Card1[] GetCards()
     {
         return _allCards;
     }
@@ -30,10 +30,10 @@ public class Deck
     private void LoadDeck(string deckName)
     {
         //File Reader to Get back a deck
-        _allCards = FileReader.GetInstance().ReadFile(deckName);
+        //_allCards = FileReader.GetInstance().ReadFile(deckName);
 
-        Debug.Log("check limit for deck : " + deckName);
-        CheckDeckLimit();
+        //Debug.Log("check limit for deck : " + deckName);
+        //CheckDeckLimit();
     }
 
     public bool GetDeckLimitOK()
@@ -68,8 +68,7 @@ public class Deck
         int finalValue = 0;
         for (int i = 0; i < _allCards.Length; i++)
         {
-            finalValue += GetTypeValue(_allCards[i].GetCardType(true), _allCards[i].GetCardAmount(true));
-            finalValue += GetTypeValue(_allCards[i].GetCardType(false), _allCards[i].GetCardAmount(false));
+            finalValue += GetTypeValue(_allCards[i].GetCardType(), _allCards[i].GetCardAmount());
         }
 
         if (finalValue > limitValue)
@@ -92,21 +91,17 @@ public class Deck
         for(int i = 0; i < _allCards.Length; i++)
         {
             int random1 = Random.Range(2, 5);
-            int random2 = Random.Range(2, 5);
-            while(random2 == random1)
-                random2 = Random.Range(2, 5);
 
-            _allCards[i] = new Card();
-            _allCards[i].RecoverActions(true, random1, Random.Range(1, 5));
-            _allCards[i].RecoverActions(false, random2, Random.Range(1, 5));
+            _allCards[i] = new Card1();
+            _allCards[i].RecoverActions(random1, Random.Range(1, 5));
         }
 
         CheckDeckLimit();
     }
 
-    public Card PickCard()
+    public Card1 PickCard()
     {
-        Card temp = _allCards[0];
+        Card1 temp = _allCards[0];
 
         for(int i = 1; i < _allCards.Length; i++)
         {
@@ -123,7 +118,7 @@ public class Deck
         for(int i = 0; i < _allCards.Length; i++)
         {
             int rand = Random.Range(0, _allCards.Length);
-            Card temp = _allCards[rand];
+            Card1 temp = _allCards[rand];
             _allCards[rand] = _allCards[i];
             _allCards[i] = temp;
         }

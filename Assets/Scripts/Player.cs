@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
 
     public int playerNumber = 0;
 
-    private Card _currentCard = null;
+    private RecomposedCard _currentCard = null;
     private int _currentAction = -1; // 0 = Left, 1 = Right
 
     private Board _currentBoard = null;
@@ -84,7 +84,7 @@ public class Player : MonoBehaviour
 
     public void PickCard()
     {
-        _currentCard = _currentDeck.PickCard();
+        _currentCard.SetCard(_currentDeck.PickCard(), _currentDeck.PickCard());
         UIManager.GetInstance().SetImageSprite(playerNumber, true, _currentCard.GetCardType(true), _currentCard.GetCardAmount(true));
         UIManager.GetInstance().SetImageSprite(playerNumber, false, _currentCard.GetCardType(false), _currentCard.GetCardAmount(false));
         //_currentCard.CardToString();
@@ -100,7 +100,7 @@ public class Player : MonoBehaviour
         return _havePlayed;
     }
 
-    public Card GetCurrentCard()
+    public RecomposedCard GetCurrentCard()
     {
         return _currentCard;
     }

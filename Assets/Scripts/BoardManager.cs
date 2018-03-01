@@ -28,7 +28,7 @@ public class BoardManager : MonoBehaviour
         _mustEndTurn = true;
     }
 
-    public void Resolve(Card player0Card, Card player1Card, int player0Choice, int player1Choice)
+    public void Resolve(RecomposedCard player0Card, RecomposedCard player1Card, int player0Choice, int player1Choice)
     {
         if (_resolving) return;
 
@@ -44,7 +44,7 @@ public class BoardManager : MonoBehaviour
         _masterBoard.ResetBoard();
     }
 
-    private IEnumerator ShowResolution(Card player0Card, Card player1Card, int player0Choice, int player1Choice)
+    private IEnumerator ShowResolution(RecomposedCard player0Card, RecomposedCard player1Card, int player0Choice, int player1Choice)
     {
         Actions player0Action = player0Card.GetSelectedAction(player0Choice);
         Actions player1Action = player1Card.GetSelectedAction(player1Choice);

@@ -31,7 +31,7 @@ public class FileReader : MonoBehaviour
         fileName = deckName + ".txt";
 
         Card[] newDeck = new Card[10];
-        int index = 0;
+        /*int index = 0;
 
         StreamReader sr = new StreamReader(fullPath + "/" + fileName);
         string fileContents = sr.ReadToEnd();
@@ -117,7 +117,7 @@ public class FileReader : MonoBehaviour
                 newDeck[index] = c;
                 index++;
             }
-        }
+        }*/
 
         return newDeck;
     }
@@ -158,7 +158,7 @@ public class FileReader : MonoBehaviour
 
     public void SaveDeck(string deckName, Deck theDeck)
     {
-        fileName = deckName + ".txt";
+        /*fileName = deckName + ".txt";
 
         StreamWriter sw = new StreamWriter(fullPath + "/" + fileName);
 
@@ -187,7 +187,7 @@ public class FileReader : MonoBehaviour
         }
 
         sw.Flush();
-        sw.Close();
+        sw.Close();*/
     }
 
     private int GetACtionID(CardType type)

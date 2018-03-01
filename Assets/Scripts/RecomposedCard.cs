@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Card
+public class RecomposedCard : MonoBehaviour
 {
-    /*private Card1 _leftAction = null;
+    private Card1 _leftAction = null;
     private Card1 _rightAction = null;
 
     public void SetCard(Card1 type1, Card1 type2)
@@ -12,6 +12,7 @@ public class Card
         _leftAction = type1;
         _rightAction = type2;
     }
+
 
     public void CardToString()
     {
@@ -25,10 +26,10 @@ public class Card
     // 0 = Left, 1 = Right
     public void SideToString(int side)
     {
-        if(side == 0)
-        Debug.Log(
-            _leftAction.GetCardType() + " for " + _leftAction.GetCardAmount() + " units. "
-            );
+        if (side == 0)
+            Debug.Log(
+                _leftAction.GetCardType() + " for " + _leftAction.GetCardAmount() + " units. "
+                );
         else if (side == 1)
             Debug.Log(
             _rightAction.GetCardType() + " for " + _rightAction.GetCardAmount() + " units. "
@@ -42,54 +43,6 @@ public class Card
             return _leftAction.GetSelectedAction();
         else
             return _rightAction.GetSelectedAction();
-    }
-
-    public void RecoverActions(bool isLeft, int actionIndex, int actionAmount)
-    {
-        switch(actionIndex)
-        {
-            case 0:
-                if(isLeft)
-                    _leftAction = new Arrow();
-                else
-                    _rightAction = new Arrow();
-                break;
-            case 1:
-                if (isLeft)
-                    _leftAction = new Magic();
-                else
-                    _rightAction = new Magic();
-                break;
-            case 2:
-                if (isLeft)
-                    _leftAction = new Move();
-                else
-                    _rightAction = new Move();
-                break;
-            case 3:
-                if (isLeft)
-                    _leftAction = new Shield();
-                else
-                    _rightAction = new Shield();
-                break;
-            case 4:
-                if (isLeft)
-                    _leftAction = new Sword();
-                else
-                    _rightAction = new Sword();
-                break;
-        }
-
-        if (isLeft)
-        {
-            _leftAction.InitAction();
-            _leftAction.SetCardAmount(actionAmount);
-        }
-        else
-        {
-            _rightAction.InitAction();
-            _rightAction.SetCardAmount(actionAmount);
-        }
     }
 
     public CardType GetCardType(bool left)
@@ -106,5 +59,57 @@ public class Card
             return _leftAction.GetCardAmount();
         else
             return _rightAction.GetCardAmount();
-    }*/
+    }
+
+    public void RecoverActions(bool isLeft, int actionIndex, int actionAmount)
+    {
+        Actions lAction = null;
+        Actions rAction = null;
+        switch (actionIndex)
+        {
+            case 0:
+                if (isLeft)
+                    lAction = new Arrow();
+                else
+                    rAction = new Arrow();
+                break;
+            case 1:
+                if (isLeft)
+                    lAction = new Magic();
+                else
+                    rAction = new Magic();
+                break;
+            case 2:
+                if (isLeft)
+                    lAction = new Move();
+                else
+                    rAction = new Move();
+                break;
+            case 3:
+                if (isLeft)
+                    lAction = new Shield();
+                else
+                    rAction = new Shield();
+                break;
+            case 4:
+                if (isLeft)
+                    lAction = new Sword();
+                else
+                    rAction = new Sword();
+                break;
+        }
+
+        if (isLeft)
+        {
+            _leftAction.SetCard(lAction);
+            _leftAction.GetSelectedAction().InitAction();
+            _leftAction.GetSelectedAction().SetCardAmount(actionAmount);
+        }
+        else
+        {
+            _rightAction.SetCard(rAction);
+            _rightAction.GetSelectedAction().InitAction();
+            _rightAction.GetSelectedAction().SetCardAmount(actionAmount);
+        }
+    }
 }
