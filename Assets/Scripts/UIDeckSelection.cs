@@ -51,6 +51,7 @@ public class UIDeckSelection : MonoBehaviour
             {
                 GameManager.GetInstance().SetPlayerDeck(0, player0Deck);
                 GameManager.GetInstance().SetPlayerDeck(1, player1Deck);
+                Debug.Log("starting game...");
                 GameManager.GetInstance().StartGame();
                 return;
             }

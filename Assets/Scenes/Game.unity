@@ -486,7 +486,7 @@ Prefab:
     - target: {fileID: 114704428455016418, guid: 30f9316a7f901f84389f096f4e70240b,
         type: 2}
       propertyPath: deckName
-      value: DeckLol
+      value: Deck1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 30f9316a7f901f84389f096f4e70240b, type: 2}
@@ -608,6 +608,14 @@ Prefab:
       propertyPath: board
       value: 
       objectReference: {fileID: 776156842}
+    - target: {fileID: 1905943351494548, guid: 75d64c8ead97c72419f936ce79d41ea5, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1273970242862550, guid: 75d64c8ead97c72419f936ce79d41ea5, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 75d64c8ead97c72419f936ce79d41ea5, type: 2}
   m_IsPrefabParent: 0
@@ -713,7 +721,7 @@ Prefab:
     - target: {fileID: 114010292036862774, guid: 728e08dc8bd244b4c94c3ef7e17d15ec,
         type: 2}
       propertyPath: useDeckName
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114438365198176818, guid: 728e08dc8bd244b4c94c3ef7e17d15ec, type: 2}

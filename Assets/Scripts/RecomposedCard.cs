@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RecomposedCard : MonoBehaviour
+public class RecomposedCard
 {
     private Card1 _leftAction = null;
     private Card1 _rightAction = null;

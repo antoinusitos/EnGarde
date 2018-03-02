@@ -26,12 +26,12 @@ public class FileReader : MonoBehaviour
     {
     }
 
-    public Card[] ReadFile(string deckName)
+    public Card1[] ReadFile(string deckName)
     {
         fileName = deckName + ".txt";
 
-        Card[] newDeck = new Card[10];
-        /*int index = 0;
+        Card1[] newDeck = new Card1[10];
+        int index = 0;
 
         StreamReader sr = new StreamReader(fullPath + "/" + fileName);
         string fileContents = sr.ReadToEnd();
@@ -57,18 +57,12 @@ public class FileReader : MonoBehaviour
             }
             else
             {
-                string[] TheInfo = infos[i].Split(new[] { "***" }, System.StringSplitOptions.None);
-
-                string[] action1s = TheInfo[0].Split('=');
-                string[] action2s = TheInfo[1].Split('=');
+                string[] action1s = infos[i].Split('=');
 
                 int id1 = int.Parse(action1s[0]);
                 int amount1 = int.Parse(action1s[1]);
-                int id2 = int.Parse(action2s[0]);
-                int amount2 = int.Parse(action2s[1]);
 
                 Actions action1 = null;
-                Actions action2 = null;
 
                 switch(id1)
                 {
@@ -88,36 +82,16 @@ public class FileReader : MonoBehaviour
                         action1 = new Shield();
                         break;
                 }
+
                 action1.InitAction();
                 action1.SetCardAmount(amount1);
 
-                switch (id2)
-                {
-                    case 0:
-                        action2 = new Arrow();
-                        break;
-                    case 1:
-                        action2 = new Magic();
-                        break;
-                    case 2:
-                        action2 = new Sword();
-                        break;
-                    case 3:
-                        action2 = new Move();
-                        break;
-                    case 4:
-                        action2 = new Shield();
-                        break;
-                }
-                action2.InitAction();
-                action2.SetCardAmount(amount2);
-
-                Card c = new Card();
-                c.SetCard(action1, action2);
+                Card1 c = new Card1();
+                c.SetCard(action1);
                 newDeck[index] = c;
                 index++;
             }
-        }*/
+        }
 
         return newDeck;
     }

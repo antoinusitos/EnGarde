@@ -84,6 +84,7 @@ public class Player : MonoBehaviour
 
     public void PickCard()
     {
+        _currentCard = new RecomposedCard();
         _currentCard.SetCard(_currentDeck.PickCard(), _currentDeck.PickCard());
         UIManager.GetInstance().SetImageSprite(playerNumber, true, _currentCard.GetCardType(true), _currentCard.GetCardAmount(true));
         UIManager.GetInstance().SetImageSprite(playerNumber, false, _currentCard.GetCardType(false), _currentCard.GetCardAmount(false));

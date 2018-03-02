@@ -27,8 +27,11 @@ public class GameManager : MonoBehaviour
     {
         _boardManager = BoardManager.GetInstance();
         _boardManager.Init();
+
+        uiDeckSelection.gameObject.SetActive(true);
+        uiGame.SetActive(false);
+
         StartDeckSelection();
-        
     }
 
     public void DamagePlayer(int player, int damage)
@@ -43,6 +46,7 @@ public class GameManager : MonoBehaviour
     public void SetPlayerDeck(int player, string deckName)
     {
         _players[player].deckName = deckName;
+        _players[player].useDeckName = true;
     }
 
     private void StartDeckSelection()
@@ -67,8 +71,16 @@ public class GameManager : MonoBehaviour
         _players[0].StartPlayer();
         _players[1].StartPlayer();
 
-        if (!_players[0].GetCurrentDeck().GetDeckLimitOK()) return;
-        if (!_players[1].GetCurrentDeck().GetDeckLimitOK()) return;
+        if (!_players[0].GetCurrentDeck().GetDeckLimitOK())
+        {
+            Debug.Log("players 0 deck is off limits !");
+            return;
+        }
+        if (!_players[1].GetCurrentDeck().GetDeckLimitOK())
+        {
+            Debug.Log("players 1 deck is off limits !");
+            return;
+        }
 
         Debug.Log("Starting Game !");
         _currentGameState = GameState.DISTRIBUTING;

@@ -30,10 +30,10 @@ public class Deck
     private void LoadDeck(string deckName)
     {
         //File Reader to Get back a deck
-        //_allCards = FileReader.GetInstance().ReadFile(deckName);
+        _allCards = FileReader.GetInstance().ReadFile(deckName);
 
         //Debug.Log("check limit for deck : " + deckName);
-        //CheckDeckLimit();
+        CheckDeckLimit();
     }
 
     public bool GetDeckLimitOK()
@@ -66,6 +66,7 @@ public class Deck
     private void CheckDeckLimit()
     {
         int finalValue = 0;
+
         for (int i = 0; i < _allCards.Length; i++)
         {
             finalValue += GetTypeValue(_allCards[i].GetCardType(), _allCards[i].GetCardAmount());
@@ -121,6 +122,14 @@ public class Deck
             Card1 temp = _allCards[rand];
             _allCards[rand] = _allCards[i];
             _allCards[i] = temp;
+        }
+    }
+
+    public void DebugDeck()
+    {
+        for(int i = 0; i < _allCards.Length; i++)
+        {
+            _allCards[i].CardToString();
         }
     }
 }
