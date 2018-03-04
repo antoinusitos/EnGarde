@@ -132,12 +132,12 @@ public class FileReader : MonoBehaviour
 
     public void SaveDeck(string deckName, Deck theDeck)
     {
-        /*fileName = deckName + ".txt";
+        fileName = deckName + ".txt";
 
         StreamWriter sw = new StreamWriter(fullPath + "/" + fileName);
 
         sw.WriteLine("#Add Action with");
-        sw.WriteLine("#idAction1=value1***idAction2=value2");
+        sw.WriteLine("#idAction=value");
         sw.WriteLine("#idAction : (Arrow=0, Magic=1, Sword=2, Move=3, Shield=4)");
         sw.WriteLine("#value : between 1 - 5 inclusive");
         sw.WriteLine("#Action cost for deck building :");
@@ -145,23 +145,19 @@ public class FileReader : MonoBehaviour
 
         string line = "";
 
-        Card[] cards = theDeck.GetCards();
+        Card1[] cards = theDeck.GetCards();
 
         for (int i = 0; i < cards.Length; i++)
         {
             line = "";
-            line += GetACtionID(cards[i].GetCardType(true));
+            line += GetACtionID(cards[i].GetCardType());
             line += "=";
-            line += cards[i].GetCardAmount(true);
-            line += "***";
-            line += GetACtionID(cards[i].GetCardType(false));
-            line += "=";
-            line += cards[i].GetCardAmount(false);
+            line += cards[i].GetCardAmount();
             sw.WriteLine(line);
         }
 
         sw.Flush();
-        sw.Close();*/
+        sw.Close();
     }
 
     private int GetACtionID(CardType type)

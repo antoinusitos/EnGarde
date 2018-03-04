@@ -15,6 +15,7 @@ public class CardCustomization : MonoBehaviour
 
     public Text textCost = null;
     public Text textStrength = null;
+    public Text textNumber = null;
 
     public Image icon = null;
 
@@ -26,8 +27,14 @@ public class CardCustomization : MonoBehaviour
 
     private UICard _currentCard = null;
 
+    public DeckBuilding deckBuilding = null;
+
     public void Init(CardType newType, int newNumber, UICard cardEditing)
     {
+        type = newType;
+        number = newNumber;
+        textNumber.text = number.ToString();
+        ShowType();
         Recalcul();
         _currentCard = cardEditing;
     }
@@ -37,6 +44,7 @@ public class CardCustomization : MonoBehaviour
         if(number + 1 <= max)
         {
             number++;
+            textNumber.text = number.ToString();
             Recalcul();
         }
     }
@@ -46,6 +54,7 @@ public class CardCustomization : MonoBehaviour
         if (number - 1 >= min)
         {
             number--;
+            textNumber.text = number.ToString();
             Recalcul();
         }
     }
@@ -62,16 +71,25 @@ public class CardCustomization : MonoBehaviour
         textCost.text = cost.ToString();
         textStrength.text = number.ToString();
 
-        if(_currentCard != null)
+        if (_currentCard != null)
         {
             _currentCard.UpdateCard(type, icon.sprite, cost, number);
         }
+
+        deckBuilding.CalculTotal();
     }
 
     public void ChangeType(int newType)
     {
         type = (CardType)newType;
 
+        ShowType();
+
+        Recalcul();
+    }
+
+    public void ShowType()
+    {
         switch (type)
         {
             case CardType.ARROW:
@@ -90,7 +108,5 @@ public class CardCustomization : MonoBehaviour
                 icon.sprite = swordSprite;
                 break;
         }
-
-        Recalcul();
     }
 }

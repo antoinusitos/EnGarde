@@ -116,7 +116,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1284193160262064
 GameObject:
   m_ObjectHideFlags: 1
@@ -674,12 +674,15 @@ MonoBehaviour:
   min: 1
   textCost: {fileID: 114450943380151762}
   textStrength: {fileID: 114868227173847996}
+  textNumber: {fileID: 114019674989179978}
   icon: {fileID: 114386117333536872}
   arrowSprite: {fileID: 21300000, guid: d08643dc8d6403c4089741ec8daa11cf, type: 3}
   shieldSprite: {fileID: 21300000, guid: efe653fdf8fa8c34a8a9b9a490676883, type: 3}
   moveSprite: {fileID: 21300000, guid: c2226cb3a49f0e245b82fae7a7ca4f9d, type: 3}
   magicSprite: {fileID: 21300000, guid: 748f2d7fdbab9bb459534d9e95b91dfa, type: 3}
   swordSprite: {fileID: 21300000, guid: d0c09646016ab2c46937a061b600c408, type: 3}
+  sliderValue: {fileID: 0}
+  textValue: {fileID: 0}
 --- !u!114 &114141804417791178
 MonoBehaviour:
   m_ObjectHideFlags: 1

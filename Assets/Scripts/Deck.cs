@@ -27,6 +27,16 @@ public class Deck
         return _allCards;
     }
 
+    public void InitDeck()
+    {
+        _allCards = new Card1[10];
+    }
+
+    public void AddCard(Card1 c, int index)
+    {
+        _allCards[index] = c;
+    }
+
     private void LoadDeck(string deckName)
     {
         //File Reader to Get back a deck

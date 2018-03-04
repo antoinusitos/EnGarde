@@ -29,4 +29,19 @@ public class UICard : MonoBehaviour
         customization.gameObject.SetActive(true);
         customization.Init(type, strength, this);
     }
+
+    public int GetCost()
+    {
+        return cost;
+    }
+
+    public int GetStrength()
+    {
+        return strength;
+    }
+
+    public int GetCardType()
+    {
+        return (int)type;
+    }
 }
