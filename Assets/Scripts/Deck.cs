@@ -41,35 +41,13 @@ public class Deck
         return _deckLimitOk;
     }
 
-    private int GetTypeValue(CardType type, int strenght)
-    {
-        switch (type)
-        {
-            case CardType.ARROW:
-                return 15;
-
-            case CardType.MAGIC:
-                return 4 * strenght;
-
-            case CardType.MOVE:
-                return strenght;
-
-            case CardType.SHIELD:
-                return strenght;
-
-            case CardType.SWORD:
-                return 4 * strenght;
-        }
-        return 0;
-    }
-
     private void CheckDeckLimit()
     {
         int finalValue = 0;
 
         for (int i = 0; i < _allCards.Length; i++)
         {
-            finalValue += GetTypeValue(_allCards[i].GetCardType(), _allCards[i].GetCardAmount());
+            finalValue += Data.GetTypeValue(_allCards[i].GetCardType(), _allCards[i].GetCardAmount());
         }
 
         if (finalValue > limitValue)
