@@ -17,6 +17,7 @@ public class UICard : MonoBehaviour
 
     public void UpdateCard(CardType newType, Sprite newSprite, int newCost, int newStrength)
     {
+        type = newType;
         cardImage.sprite = newSprite;
         cost = newCost;
         cardCost.text = newCost.ToString();

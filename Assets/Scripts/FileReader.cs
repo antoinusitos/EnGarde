@@ -150,7 +150,8 @@ public class FileReader : MonoBehaviour
         for (int i = 0; i < cards.Length; i++)
         {
             line = "";
-            line += GetACtionID(cards[i].GetCardType());
+            Debug.Log("save:" + cards[i].GetCardType());
+            line += (GetACtionID(cards[i].GetCardType()));
             line += "=";
             line += cards[i].GetCardAmount();
             sw.WriteLine(line);
@@ -158,6 +159,19 @@ public class FileReader : MonoBehaviour
 
         sw.Flush();
         sw.Close();
+
+        StreamReader sr = new StreamReader(fullPath + "/" + "DeckAvailable.txt");
+        string fileContents = sr.ReadToEnd();
+        sr.Close();
+
+        theDeck.CheckDeckLimit();
+        StreamWriter sw2 = new StreamWriter(fullPath + "/" + "DeckAvailable.txt");
+
+        sw2.Write(fileContents);
+        sw2.WriteLine(deckName + "#" + theDeck.GetLastCost());
+
+        sw2.Flush();
+        sw2.Close();
     }
 
     private int GetACtionID(CardType type)

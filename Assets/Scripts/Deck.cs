@@ -10,6 +10,8 @@ public class Deck
 
     private bool _deckLimitOk = false;
 
+    private int lastCost = 0;
+
     public void StartDeck(string deckName, bool useDeckName)
     {
         _allCards = new Card1[10];
@@ -51,7 +53,12 @@ public class Deck
         return _deckLimitOk;
     }
 
-    private void CheckDeckLimit()
+    public int GetLastCost()
+    {
+        return lastCost;
+    }
+
+    public void CheckDeckLimit()
     {
         int finalValue = 0;
 
@@ -73,6 +80,8 @@ public class Deck
             Debug.Log("deck value <= " + limitValue + "  with " + finalValue);
             _deckLimitOk = true;
         }
+
+        lastCost = finalValue;
     }
 
     private void GenerateDeck()

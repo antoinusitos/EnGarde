@@ -39,7 +39,7 @@ public class DeckBuilding : MonoBehaviour
         {
             Actions action = null;
 
-            switch (allCards[i].GetCardType())
+            switch (allCards[i].GetCardType() - 1)
             {
                 case 0:
                     action = new Arrow();
