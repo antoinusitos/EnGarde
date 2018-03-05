@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
     public UIDeckSelection uiDeckSelection = null;
     public GameObject uiGame = null;
 
+    public GameObject uiEndGame = null;
+
     private void Start()
     {
         _boardManager = BoardManager.GetInstance();
@@ -53,12 +55,10 @@ public class GameManager : MonoBehaviour
     {
         DeckInfos[] deckInfos = FileReader.GetInstance().GetDeckInfos();
 
-        Debug.Log("Load decks available");
-
-        for(int i = 0; i < deckInfos.Length; i++)
+        /*for(int i = 0; i < deckInfos.Length; i++)
         {
             Debug.Log(deckInfos[i].deckName + " with size " + deckInfos[i].deckSize);
-        }
+        }*/
 
         uiDeckSelection.ShowDeckAvailable(deckInfos);
     }
@@ -122,22 +122,27 @@ public class GameManager : MonoBehaviour
                 {
                     Debug.Log("End Game");
                     _currentGameState = GameState.ENDGAME;
-                    Debug.Log("Press N to start again");
                 }
                 break;
 
             case GameState.ENDGAME:
-                if(Input.GetKeyDown(KeyCode.N))
-                {
-                    _players[0].ResetPlayer();
-                    _players[1].ResetPlayer();
-                    _boardManager.ResetBoard();
-                    Debug.Log("Starting Game !");
-                    _currentGameState = GameState.DISTRIBUTING;
-
-                }
+                uiEndGame.SetActive(true);
+                if (_players[0].GetLife() <= 0)
+                    uiEndGame.GetComponent<EndGame>().SetWinner(1);
+                else
+                    uiEndGame.GetComponent<EndGame>().SetWinner(0);
                 break;
         }
+    }
+
+    public void StartAgain()
+    {
+        uiEndGame.SetActive(false);
+        _players[0].ResetPlayer();
+        _players[1].ResetPlayer();
+        _boardManager.ResetBoard();
+        Debug.Log("Starting Game !");
+        _currentGameState = GameState.DISTRIBUTING;
     }
 
     public void SetGameState(GameState newState)

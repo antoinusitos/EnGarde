@@ -150,7 +150,6 @@ public class FileReader : MonoBehaviour
         for (int i = 0; i < cards.Length; i++)
         {
             line = "";
-            Debug.Log("save:" + cards[i].GetCardType());
             line += (GetACtionID(cards[i].GetCardType()));
             line += "=";
             line += cards[i].GetCardAmount();

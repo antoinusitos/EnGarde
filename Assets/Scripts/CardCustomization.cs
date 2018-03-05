@@ -19,12 +19,6 @@ public class CardCustomization : MonoBehaviour
 
     public Image icon = null;
 
-    public Sprite arrowSprite = null;
-    public Sprite shieldSprite = null;
-    public Sprite moveSprite = null;
-    public Sprite magicSprite = null;
-    public Sprite swordSprite = null;
-
     private UICard _currentCard = null;
 
     public DeckBuilding deckBuilding = null;
@@ -90,23 +84,6 @@ public class CardCustomization : MonoBehaviour
 
     public void ShowType()
     {
-        switch (type)
-        {
-            case CardType.ARROW:
-                icon.sprite = arrowSprite;
-                break;
-            case CardType.MAGIC:
-                icon.sprite = magicSprite;
-                break;
-            case CardType.MOVE:
-                icon.sprite = moveSprite;
-                break;
-            case CardType.SHIELD:
-                icon.sprite = shieldSprite;
-                break;
-            case CardType.SWORD:
-                icon.sprite = swordSprite;
-                break;
-        }
+        icon.sprite = Data.GetSprite(type);
     }
 }

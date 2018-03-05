@@ -10,20 +10,24 @@ public class UIDeckSelection : MonoBehaviour
 
     private UIADeckInfo[] _allDeckInfos = null;
 
+    public Transform allDeckInfoParent = null;
+
     public void ShowDeckAvailable(DeckInfos[] decks)
     {
         _allDeckInfos = new UIADeckInfo[decks.Length];
-        float splitSize = sizeY / decks.Length;
-        float posY = splitSize;
+        float posY = -50;
+        Rect r = allDeckInfoParent.GetComponent<RectTransform>().rect;
+        allDeckInfoParent.GetComponent<RectTransform>().sizeDelta = new Vector2(r.width, decks.Length * 100);
+
         for (int i = 0; i < decks.Length; i++)
         {
             GameObject go = Instantiate(aDeckInfoPrefab);
-            go.transform.SetParent(transform);
-            go.transform.localPosition = Vector2.up * posY;
+            go.transform.SetParent(allDeckInfoParent);
+            go.transform.localPosition = Vector2.up * posY + Vector2.right * 250;
             go.GetComponent<UIADeckInfo>().SetDeckName(decks[i].deckName);
             go.GetComponent<UIADeckInfo>().SetDeckCost(decks[i].deckSize);
             _allDeckInfos[i] = go.GetComponent<UIADeckInfo>();
-            posY -= splitSize;
+            posY -= 100;
         }
     }
 
@@ -41,7 +45,7 @@ public class UIDeckSelection : MonoBehaviour
                 player0Found = true;
                 player0Deck = _allDeckInfos[i].deckName.text;
             }
-            else if (!player1Found && _allDeckInfos[i].GetRightSideSelected())
+            if (!player1Found && _allDeckInfos[i].GetRightSideSelected())
             {
                 player1Found = true;
                 player1Deck = _allDeckInfos[i].deckName.text;
@@ -56,5 +60,18 @@ public class UIDeckSelection : MonoBehaviour
                 return;
             }
         }
+    }
+
+    public string GetDeckSelected()
+    {
+        for (int i = 0; i < _allDeckInfos.Length; i++)
+        {
+            if (_allDeckInfos[i].GetLeftSideSelected())
+            {
+                return _allDeckInfos[i].deckName.text;
+            }
+        }
+
+        return "";
     }
 }

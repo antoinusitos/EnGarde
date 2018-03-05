@@ -1,16 +1,16 @@
 #Add Action with
-#idAction1=value1***idAction2=value2
+#idAction=value
 #idAction : (Arrow=0, Magic=1, Sword=2, Move=3, Shield=4)
 #value : between 1 - 5 inclusive
 #Action cost for deck building :
 #Arrow 15, Sword X * 4, Move X, Shield X, Magic X * 4
-2=1
-4=2
 3=1
-3=2
-2=1
-0=1
-3=2
-1=1
-2=1
-1=1
+3=1
+3=1
+3=1
+3=1
+3=1
+3=1
+3=1
+3=1
+3=1

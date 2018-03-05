@@ -1,5 +1,2 @@
-Deck1#80
-Deck2#80
-DeckLol#80
-ahah#89
-faeefae#94
+Base#10
+HIT#97

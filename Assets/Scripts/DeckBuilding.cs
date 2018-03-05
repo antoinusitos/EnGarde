@@ -28,6 +28,22 @@ public class DeckBuilding : MonoBehaviour
         lastCalcul = total;
     }
 
+    public void AffectDeck(Card1[] deck, string deckName)
+    {
+        for(int i = 0; i < allCards.Length; i++)
+        {
+            allCards[i].UpdateCard(
+                deck[i].GetCardType(), 
+                Data.GetSprite(deck[i].GetCardType()), 
+                Data.GetTypeValue(deck[i].GetCardType(), 
+                deck[i].GetCardAmount()), 
+                deck[i].GetCardAmount()
+            );
+        }
+
+        deckText.transform.parent.GetComponent<InputField>().text = deckName;
+    }
+
     public void SaveDeck()
     {
         CalculTotal();
