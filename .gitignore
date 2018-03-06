@@ -323,3 +323,4 @@ __pycache__/
 # End of https://www.gitignore.io/api/unity,visualstudio
 Build_05_03_18.zip
 *.rar
+*.zip
