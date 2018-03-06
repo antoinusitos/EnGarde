@@ -1,3 +1,0 @@
-8 cartes / joueur
-2 joueurs (1v1)
-Actions : Arrow, Magic, Sword, Move, Shield
